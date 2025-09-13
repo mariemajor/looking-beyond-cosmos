@@ -106,8 +106,8 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
         
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
           <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-full flex items-center justify-center p-2">
-              <img src={akashicBookIcon} alt="Akashic Records Book" className="w-full h-full object-contain" />
+            <div className="w-16 h-16 mx-auto mb-4 bg-primary/20 rounded-full flex items-center justify-center">
+              <Stars className="w-8 h-8 text-primary" />
             </div>
             <h3 className="text-lg font-semibold mb-2">Akashic Records</h3>
             <p className="text-muted-foreground text-sm">Access your soul's eternal wisdom and past life insights</p>
