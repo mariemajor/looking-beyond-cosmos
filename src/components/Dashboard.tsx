@@ -12,8 +12,13 @@ import {
   Calendar,
   Compass,
   BookOpen,
-  Zap
+  Zap,
+  Settings,
+  Crown
 } from "lucide-react";
+import { SubscriptionPlans } from "@/components/SubscriptionPlans";
+import { SubscriptionGate } from "@/components/SubscriptionGate";
+import { useSubscription } from "@/hooks/useSubscription";
 
 interface UserData {
   name: string;
@@ -27,6 +32,8 @@ interface DashboardProps {
 
 export const Dashboard = ({ userData }: DashboardProps) => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [showSubscription, setShowSubscription] = useState(false);
+  const subscription = useSubscription();
 
   const cosmicSections = [
     {
@@ -79,17 +86,58 @@ export const Dashboard = ({ userData }: DashboardProps) => {
     }
   ];
 
+  if (showSubscription) {
+    return (
+      <div className="min-h-screen p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowSubscription(false)}
+              className="mb-4"
+            >
+              ← Back to Dashboard
+            </Button>
+          </div>
+          <SubscriptionPlans 
+            currentPlan={subscription} 
+            onSubscriptionUpdate={subscription.refreshSubscription}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-4">
-            Welcome, <span className="text-shimmer">{userData.name}</span>
-          </h1>
-          <p className="text-xl text-muted-foreground">
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <h1 className="text-4xl md:text-6xl font-playfair font-bold">
+              Welcome, <span className="text-shimmer">{userData.name}</span>
+            </h1>
+            {subscription.subscribed && (
+              <Badge className="bg-gradient-cosmic text-primary-foreground border-0">
+                <Crown className="w-3 h-3 mr-1" />
+                Premium
+              </Badge>
+            )}
+          </div>
+          <p className="text-xl text-muted-foreground mb-4">
             Your cosmic journey awaits • Born {new Date(userData.birthday).toLocaleDateString()}
           </p>
+          
+          <div className="flex justify-center gap-4">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowSubscription(true)}
+              className="gap-2"
+            >
+              <Settings className="w-4 h-4" />
+              {subscription.subscribed ? 'Manage Subscription' : 'View Plans'}
+            </Button>
+          </div>
         </div>
 
         {/* Main Grid */}
@@ -118,10 +166,23 @@ export const Dashboard = ({ userData }: DashboardProps) => {
                   <CardContent className="pt-0">
                     <div className="space-y-4">
                       <p className="text-sm leading-relaxed">{section.content}</p>
-                      <Button variant="ethereal" size="sm" className="w-full">
-                        <BookOpen className="w-4 h-4 mr-2" />
-                        Explore Further
-                      </Button>
+                      {section.id === 'guidance' || section.id === 'akashic' ? (
+                        <SubscriptionGate 
+                          feature={section.title}
+                          description={`Get unlimited access to ${section.title.toLowerCase()}`}
+                          showUpgrade={() => setShowSubscription(true)}
+                        >
+                          <Button variant="ethereal" size="sm" className="w-full">
+                            <BookOpen className="w-4 h-4 mr-2" />
+                            Explore Further
+                          </Button>
+                        </SubscriptionGate>
+                      ) : (
+                        <Button variant="ethereal" size="sm" className="w-full">
+                          <BookOpen className="w-4 h-4 mr-2" />
+                          Explore Further
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 )}
@@ -160,10 +221,16 @@ export const Dashboard = ({ userData }: DashboardProps) => {
             <p className="text-sm text-muted-foreground mb-4">
               Your guides see your dreams manifesting within the next lunar cycle. Stay focused on positive visualization and take inspired action when opportunities arise.
             </p>
-            <Button variant="cosmic" className="w-full">
-              <Sparkles className="w-4 h-4 mr-2" />
-              Get Manifestation Guidance
-            </Button>
+            <SubscriptionGate 
+              feature="Manifestation Guidance"
+              description="Get personalized AI guidance for manifesting your dreams"
+              showUpgrade={() => setShowSubscription(true)}
+            >
+              <Button variant="cosmic" className="w-full">
+                <Sparkles className="w-4 h-4 mr-2" />
+                Get Manifestation Guidance
+              </Button>
+            </SubscriptionGate>
           </CardContent>
         </Card>
       </div>
