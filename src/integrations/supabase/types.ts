@@ -14,7 +14,174 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      daily_rituals: {
+        Row: {
+          benefits: string[] | null
+          category: string
+          created_at: string
+          description: string
+          difficulty: string
+          duration_minutes: number
+          elements: string[] | null
+          id: string
+          instructions: Json
+          moon_phase: string[] | null
+          season: string[] | null
+          spiritual_paths: string[] | null
+          title: string
+        }
+        Insert: {
+          benefits?: string[] | null
+          category: string
+          created_at?: string
+          description: string
+          difficulty?: string
+          duration_minutes: number
+          elements?: string[] | null
+          id?: string
+          instructions: Json
+          moon_phase?: string[] | null
+          season?: string[] | null
+          spiritual_paths?: string[] | null
+          title: string
+        }
+        Update: {
+          benefits?: string[] | null
+          category?: string
+          created_at?: string
+          description?: string
+          difficulty?: string
+          duration_minutes?: number
+          elements?: string[] | null
+          id?: string
+          instructions?: Json
+          moon_phase?: string[] | null
+          season?: string[] | null
+          spiritual_paths?: string[] | null
+          title?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          birth_date: string | null
+          created_at: string
+          experience_level: string | null
+          id: string
+          intentions: string[] | null
+          name: string | null
+          preferred_elements: string[] | null
+          spiritual_path: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          birth_date?: string | null
+          created_at?: string
+          experience_level?: string | null
+          id?: string
+          intentions?: string[] | null
+          name?: string | null
+          preferred_elements?: string[] | null
+          spiritual_path?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          birth_date?: string | null
+          created_at?: string
+          experience_level?: string | null
+          id?: string
+          intentions?: string[] | null
+          name?: string | null
+          preferred_elements?: string[] | null
+          spiritual_path?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      spiritual_tips: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          difficulty: string
+          id: string
+          spiritual_paths: string[] | null
+          tags: string[] | null
+          title: string
+        }
+        Insert: {
+          category: string
+          content: string
+          created_at?: string
+          difficulty?: string
+          id?: string
+          spiritual_paths?: string[] | null
+          tags?: string[] | null
+          title: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          difficulty?: string
+          id?: string
+          spiritual_paths?: string[] | null
+          tags?: string[] | null
+          title?: string
+        }
+        Relationships: []
+      }
+      user_daily_content: {
+        Row: {
+          completed: boolean | null
+          content_date: string
+          created_at: string
+          id: string
+          notes: string | null
+          ritual_id: string | null
+          tip_id: string | null
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          content_date?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          ritual_id?: string | null
+          tip_id?: string | null
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          content_date?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          ritual_id?: string | null
+          tip_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_daily_content_ritual_id_fkey"
+            columns: ["ritual_id"]
+            isOneToOne: false
+            referencedRelation: "daily_rituals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_daily_content_tip_id_fkey"
+            columns: ["tip_id"]
+            isOneToOne: false
+            referencedRelation: "spiritual_tips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
