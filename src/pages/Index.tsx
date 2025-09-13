@@ -1,13 +1,48 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { HeroSection } from "@/components/HeroSection";
+import { OnboardingFlow } from "@/components/OnboardingFlow";
+import { Dashboard } from "@/components/Dashboard";
+
+interface UserData {
+  name: string;
+  birthday: string;
+  dreams: string;
+}
 
 const Index = () => {
+  const [currentView, setCurrentView] = useState<'hero' | 'onboarding' | 'dashboard'>('hero');
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  const handleGetStarted = () => {
+    setCurrentView('onboarding');
+  };
+
+  const handleOnboardingComplete = (data: UserData) => {
+    setUserData(data);
+    setCurrentView('dashboard');
+  };
+
+  const handleBackToHero = () => {
+    setCurrentView('hero');
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <main className="relative">
+      {currentView === 'hero' && (
+        <HeroSection onGetStarted={handleGetStarted} />
+      )}
+      
+      {currentView === 'onboarding' && (
+        <OnboardingFlow 
+          onComplete={handleOnboardingComplete}
+          onBack={handleBackToHero}
+        />
+      )}
+      
+      {currentView === 'dashboard' && userData && (
+        <Dashboard userData={userData} />
+      )}
+    </main>
   );
 };
 

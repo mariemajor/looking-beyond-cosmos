@@ -1,0 +1,172 @@
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Sparkles, 
+  Moon, 
+  Heart, 
+  Scroll, 
+  Star, 
+  Gem, 
+  Calendar,
+  Compass,
+  BookOpen,
+  Zap
+} from "lucide-react";
+
+interface UserData {
+  name: string;
+  birthday: string;
+  dreams: string;
+}
+
+interface DashboardProps {
+  userData: UserData;
+}
+
+export const Dashboard = ({ userData }: DashboardProps) => {
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+
+  const cosmicSections = [
+    {
+      id: "akashic",
+      title: "Akashic Records",
+      description: "Access your soul's eternal wisdom",
+      icon: Scroll,
+      color: "primary",
+      content: `Welcome ${userData.name}, your Akashic Records reveal a soul that has traveled through many dimensions. You carry the wisdom of ancient civilizations and have incarnated to help humanity's ascension. Your current life purpose involves healing others through your natural empathic abilities.`
+    },
+    {
+      id: "starseed",
+      title: "Starseed Origins", 
+      description: "Discover your galactic heritage",
+      icon: Star,
+      color: "accent",
+      content: `Based on your birth date of ${userData.birthday}, you are a Pleiadian Starseed. Your soul originates from the Pleiades star cluster, bringing healing frequencies and advanced spiritual knowledge to Earth. You're naturally drawn to helping others awaken their consciousness.`
+    },
+    {
+      id: "guidance",
+      title: "Daily Guidance",
+      description: "Messages from your guides",
+      icon: Sparkles,
+      color: "primary",
+      content: "Your guides want you to know that you're on the right path. Trust your intuition today and pay attention to synchronicities. The universe is aligning to manifest your dreams. Stay open to unexpected opportunities."
+    },
+    {
+      id: "rituals",
+      title: "Sacred Rituals",
+      description: "Manifestation practices",
+      icon: Moon,
+      color: "accent", 
+      content: "Tonight's New Moon in your sign is perfect for manifestation. Light a white candle, write your intentions on paper, and visualize your dreams as already fulfilled. End with gratitude and release the paper to the universe."
+    },
+    {
+      id: "crystals",
+      title: "Crystal Guidance",
+      description: "Healing stone recommendations",
+      icon: Gem,
+      color: "primary",
+      content: "Amethyst and Rose Quartz are calling to you today. Amethyst will enhance your spiritual connection and intuition, while Rose Quartz opens your heart to self-love and manifesting your dreams. Carry them with you or place them on your altar."
+    },
+    {
+      id: "astrology",
+      title: "Cosmic Events",
+      description: "Current astrological influences",
+      icon: Calendar,
+      color: "accent",
+      content: "Venus is entering your house of manifestation this week, bringing powerful energy to your dreams and desires. Mercury retrograde ends tomorrow, clearing communication blocks. This is an excellent time for new beginnings."
+    }
+  ];
+
+  return (
+    <div className="min-h-screen p-6">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-4">
+            Welcome, <span className="text-shimmer">{userData.name}</span>
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            Your cosmic journey awaits • Born {new Date(userData.birthday).toLocaleDateString()}
+          </p>
+        </div>
+
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          {cosmicSections.map((section) => {
+            const Icon = section.icon;
+            const isActive = activeSection === section.id;
+            
+            return (
+              <Card 
+                key={section.id}
+                className={`card-cosmic cursor-pointer transition-all duration-500 ${
+                  isActive ? 'ring-2 ring-primary shadow-stardust' : ''
+                }`}
+                onClick={() => setActiveSection(isActive ? null : section.id)}
+              >
+                <CardHeader className="text-center">
+                  <div className={`w-16 h-16 mx-auto mb-4 bg-${section.color}/20 rounded-full flex items-center justify-center floating`}>
+                    <Icon className={`w-8 h-8 text-${section.color}`} />
+                  </div>
+                  <CardTitle className="text-xl font-playfair">{section.title}</CardTitle>
+                  <CardDescription>{section.description}</CardDescription>
+                </CardHeader>
+                
+                {isActive && (
+                  <CardContent className="pt-0">
+                    <div className="space-y-4">
+                      <p className="text-sm leading-relaxed">{section.content}</p>
+                      <Button variant="ethereal" size="sm" className="w-full">
+                        <BookOpen className="w-4 h-4 mr-2" />
+                        Explore Further
+                      </Button>
+                    </div>
+                  </CardContent>
+                )}
+              </Card>
+            );
+          })}
+        </div>
+
+        {/* Dreams Manifestation Section */}
+        <Card className="card-cosmic">
+          <CardHeader>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
+                <Heart className="w-6 h-6 text-accent" />
+              </div>
+              <div>
+                <CardTitle className="text-2xl font-playfair">Your Dreams & Manifestations</CardTitle>
+                <CardDescription>The universe is conspiring to fulfill your desires</CardDescription>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="bg-secondary/20 rounded-lg p-4 mb-4">
+              <p className="text-sm leading-relaxed italic">{userData.dreams}</p>
+            </div>
+            <div className="flex flex-wrap gap-2 mb-4">
+              <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
+                <Zap className="w-3 h-3 mr-1" />
+                High Manifestation Energy
+              </Badge>
+              <Badge variant="secondary" className="bg-accent/20 text-accent border-accent/30">
+                <Compass className="w-3 h-3 mr-1" />
+                Aligned Path
+              </Badge>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Your guides see your dreams manifesting within the next lunar cycle. Stay focused on positive visualization and take inspired action when opportunities arise.
+            </p>
+            <Button variant="cosmic" className="w-full">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Get Manifestation Guidance
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
