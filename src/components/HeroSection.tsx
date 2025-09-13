@@ -59,7 +59,7 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
             variant="cosmic" 
             size="lg"
             onClick={onGetStarted}
-            className="px-8 py-4 text-lg pulse-glow"
+            className="px-8 py-4 text-lg"
           >
             <Sparkles className="w-5 h-5 mr-2" />
             Begin Your Journey
