@@ -2,6 +2,7 @@ import { useState } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 import { Dashboard } from "@/components/Dashboard";
+import { Auth } from "@/pages/Auth";
 
 interface UserData {
   name: string;
@@ -10,11 +11,11 @@ interface UserData {
 }
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'hero' | 'onboarding' | 'dashboard'>('hero');
+  const [currentView, setCurrentView] = useState<'hero' | 'auth' | 'onboarding' | 'dashboard'>('hero');
   const [userData, setUserData] = useState<UserData | null>(null);
 
   const handleGetStarted = () => {
-    setCurrentView('onboarding');
+    setCurrentView('auth');
   };
 
   const handleOnboardingComplete = (data: UserData) => {
@@ -26,10 +27,21 @@ const Index = () => {
     setCurrentView('hero');
   };
 
+  const handleAuthSuccess = () => {
+    setCurrentView('onboarding');
+  };
+
   return (
     <main className="relative">
       {currentView === 'hero' && (
         <HeroSection onGetStarted={handleGetStarted} />
+      )}
+      
+      {currentView === 'auth' && (
+        <Auth 
+          onAuthSuccess={handleAuthSuccess}
+          onBack={handleBackToHero}
+        />
       )}
       
       {currentView === 'onboarding' && (
