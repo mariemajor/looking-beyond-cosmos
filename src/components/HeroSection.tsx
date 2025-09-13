@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, Stars, Moon, LogIn, UserPlus } from "lucide-react";
-import heroImage from "@/assets/hero-starseed-meditation.jpg";
+import heroImage from "@/assets/hero-cosmic-being-small.jpg";
 import akashicBookIcon from "@/assets/akashic-book-icon.png";
 import { useState } from "react";
 
