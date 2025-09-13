@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Sparkles, Stars, Moon } from "lucide-react";
-import heroImage from "@/assets/hero-starseed-meditation.jpg";
+import heroImage from "@/assets/hero-cosmic-silhouette.jpg";
 
 interface HeroSectionProps {
   onGetStarted: () => void;
