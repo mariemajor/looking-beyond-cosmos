@@ -38,14 +38,14 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
       
       {/* Content */}
       <div className="relative z-10 text-center max-w-4xl mx-auto px-6">
-        <div className="mb-8">
-          <h1 className="text-6xl md:text-8xl font-playfair font-bold mb-6">
+        <div className="mb-4">
+          <h1 className="text-6xl md:text-8xl font-playfair font-bold mb-4">
             <span className="text-shimmer">Looking</span>
             <br />
             <span className="text-foreground">Beyond</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-6">
             Connect with the universe, your guides, and higher self. 
             Discover your starseed origins and manifest your dreams through 
             ancient wisdom and cosmic guidance.
