@@ -40,8 +40,8 @@ const PLANS = {
     name: "Looking Beyond",
     price: "$9.99",
     period: "month",
-    priceId: "price_1QnKKwPVfOYSCGJW6yGEEvzN", // This will be replaced with actual price ID
-    productId: "prod_RQjJTLaGhYjT2C",
+    priceId: "price_1S714F9C3SDwSAb1TuZmvccz",
+    productId: "prod_T37Iowdno9f6bU",
     description: "Unlock your full cosmic potential",
     features: [
       "Unlimited AI spiritual guidance",
