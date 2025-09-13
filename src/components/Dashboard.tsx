@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { SubscriptionPlans } from "@/components/SubscriptionPlans";
 import { SubscriptionGate } from "@/components/SubscriptionGate";
+import { SpiritualChat } from "@/components/SpiritualChat";
 import { useSubscription } from "@/hooks/useSubscription";
 
 interface UserData {
@@ -33,6 +34,7 @@ interface DashboardProps {
 export const Dashboard = ({ userData }: DashboardProps) => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [showSubscription, setShowSubscription] = useState(false);
+  const [showChat, setShowChat] = useState(false);
   const subscription = useSubscription();
 
   const cosmicSections = [
@@ -86,6 +88,17 @@ export const Dashboard = ({ userData }: DashboardProps) => {
     }
   ];
 
+  if (showChat) {
+    return (
+      <div className="min-h-screen">
+        <SpiritualChat 
+          userData={userData} 
+          onBack={() => setShowChat(false)}
+        />
+      </div>
+    );
+  }
+
   if (showSubscription) {
     return (
       <div className="min-h-screen p-6">
@@ -137,6 +150,14 @@ export const Dashboard = ({ userData }: DashboardProps) => {
               <Settings className="w-4 h-4" />
               {subscription.subscribed ? 'Manage Subscription' : 'View Plans'}
             </Button>
+            
+            <Button 
+              onClick={() => setShowChat(true)}
+              className="btn-cosmic gap-2"
+            >
+              <Sparkles className="w-4 h-4" />
+              Start Spiritual Chat
+            </Button>
           </div>
         </div>
 
@@ -166,7 +187,17 @@ export const Dashboard = ({ userData }: DashboardProps) => {
                   <CardContent className="pt-0">
                     <div className="space-y-4">
                       <p className="text-sm leading-relaxed">{section.content}</p>
-                      {section.id === 'guidance' || section.id === 'akashic' ? (
+                      {section.id === 'guidance' ? (
+                        <Button 
+                          variant="ethereal" 
+                          size="sm" 
+                          className="w-full"
+                          onClick={() => setShowChat(true)}
+                        >
+                          <BookOpen className="w-4 h-4 mr-2" />
+                          Open Spiritual Chat
+                        </Button>
+                      ) : section.id === 'akashic' ? (
                         <SubscriptionGate 
                           feature={section.title}
                           description={`Get unlimited access to ${section.title.toLowerCase()}`}
