@@ -1,12 +1,16 @@
 import { Button } from "@/components/ui/button";
-import { Sparkles, Stars, Moon } from "lucide-react";
-import heroImage from "@/assets/hero-cosmic-silhouette.jpg";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent } from "@/components/ui/card";
+import { Sparkles, Stars, Moon, LogIn, UserPlus } from "lucide-react";
+import heroImage from "@/assets/hero-cosmic-being.jpg";
+import { useState } from "react";
 
 interface HeroSectionProps {
   onGetStarted: () => void;
 }
 
 export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
+  const [showQuickLogin, setShowQuickLogin] = useState(false);
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -48,7 +52,8 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
           </p>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
           <Button 
             variant="cosmic" 
             size="lg"
@@ -62,12 +67,41 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
           <Button 
             variant="ethereal" 
             size="lg"
+            onClick={() => setShowQuickLogin(!showQuickLogin)}
             className="px-8 py-4 text-lg"
           >
-            <Stars className="w-5 h-5 mr-2" />
-            Learn More
+            <LogIn className="w-5 h-5 mr-2" />
+            Quick Login
           </Button>
         </div>
+
+        {/* Quick Login Panel */}
+        {showQuickLogin && (
+          <div className="mb-8 animate-fade-in">
+            <Card className="max-w-md mx-auto card-cosmic">
+              <CardContent className="p-6">
+                <div className="text-center mb-4">
+                  <h3 className="text-lg font-semibold mb-2">Welcome Back, Starseed</h3>
+                  <p className="text-sm text-muted-foreground">Quick access to your cosmic journey</p>
+                </div>
+                <div className="space-y-3">
+                  <Input placeholder="Cosmic email address" className="bg-background/50" />
+                  <Input type="password" placeholder="Sacred password" className="bg-background/50" />
+                  <div className="flex gap-2">
+                    <Button variant="cosmic" className="flex-1">
+                      <LogIn className="w-4 h-4 mr-2" />
+                      Enter
+                    </Button>
+                    <Button variant="ethereal" className="flex-1" onClick={onGetStarted}>
+                      <UserPlus className="w-4 h-4 mr-2" />
+                      Join
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
         
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
           <div className="text-center">
