@@ -1,7 +1,7 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.472c1e04dde94d5cab7b35b17e498aa9',
+  appId: 'com.lookingbeyondcosmos.app',
   appName: 'looking-beyond-cosmos',
   webDir: 'dist',
   server: {
