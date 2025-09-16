@@ -16,6 +16,7 @@ import {
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { useSubscription } from "@/hooks/useSubscription";
+import { ContentModerator, RateLimiter } from "@/components/ContentModeration";
 
 interface Message {
   id: string;
@@ -115,6 +116,27 @@ What would you like to ask your guides today, dear one? They are surrounding you
 
   const sendMessage = async () => {
     if (!inputMessage.trim() || isLoading) return;
+
+    // Content validation and moderation
+    const validation = ContentModerator.validateUserInput(inputMessage);
+    if (!validation.isValid) {
+      toast({
+        title: "Invalid Content",
+        description: validation.message,
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const moderation = await ContentModerator.moderateText(inputMessage);
+    if (!moderation.isApproved) {
+      toast({
+        title: "Content Not Allowed",
+        description: moderation.reason || "Content violates our community guidelines",
+        variant: "destructive"
+      });
+      return;
+    }
 
     if (!canSendMessage()) {
       toast({
