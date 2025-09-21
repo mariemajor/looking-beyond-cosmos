@@ -39,8 +39,8 @@ serve(async (req) => {
 
     const { message, userProfile } = await req.json();
     
-    // Get current cosmic data for September 17, 2025
-    const currentDate = new Date(2025, 8, 17); // September 17, 2025
+    // Get current cosmic data for real-time date
+    const currentDate = new Date();
     const today = currentDate.toISOString().split('T')[0];
     
     // Fetch current cosmic events for accurate 2025 astrology
