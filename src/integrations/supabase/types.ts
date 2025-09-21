@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      daily_cosmic_events: {
+        Row: {
+          collective_energy_theme: string | null
+          cosmic_events: string[] | null
+          created_at: string
+          event_date: string
+          id: string
+          manifestation_power_rating: number | null
+          moon_phase: string
+          moon_sign: string | null
+          planetary_transits: Json | null
+          updated_at: string
+        }
+        Insert: {
+          collective_energy_theme?: string | null
+          cosmic_events?: string[] | null
+          created_at?: string
+          event_date: string
+          id?: string
+          manifestation_power_rating?: number | null
+          moon_phase: string
+          moon_sign?: string | null
+          planetary_transits?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          collective_energy_theme?: string | null
+          cosmic_events?: string[] | null
+          created_at?: string
+          event_date?: string
+          id?: string
+          manifestation_power_rating?: number | null
+          moon_phase?: string
+          moon_sign?: string | null
+          planetary_transits?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       daily_rituals: {
         Row: {
           benefits: string[] | null
@@ -181,6 +220,57 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_spiritual_profiles: {
+        Row: {
+          akashic_records_access_level: string | null
+          astrological_houses: Json | null
+          birth_coordinates: Json | null
+          birth_location: string | null
+          birth_time: string | null
+          created_at: string
+          id: string
+          life_path_number: number | null
+          personal_spirit_guides: string[] | null
+          planetary_aspects: Json | null
+          soul_contract: string | null
+          starseed_origins: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          akashic_records_access_level?: string | null
+          astrological_houses?: Json | null
+          birth_coordinates?: Json | null
+          birth_location?: string | null
+          birth_time?: string | null
+          created_at?: string
+          id?: string
+          life_path_number?: number | null
+          personal_spirit_guides?: string[] | null
+          planetary_aspects?: Json | null
+          soul_contract?: string | null
+          starseed_origins?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          akashic_records_access_level?: string | null
+          astrological_houses?: Json | null
+          birth_coordinates?: Json | null
+          birth_location?: string | null
+          birth_time?: string | null
+          created_at?: string
+          id?: string
+          life_path_number?: number | null
+          personal_spirit_guides?: string[] | null
+          planetary_aspects?: Json | null
+          soul_contract?: string | null
+          starseed_origins?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
     }
     Views: {

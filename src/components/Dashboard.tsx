@@ -52,7 +52,7 @@ export const Dashboard = ({ userData }: DashboardProps) => {
       description: "Discover your galactic heritage",
       icon: Star,
       color: "accent",
-      content: `Based on your birth date of ${userData.birthday}, you are a Pleiadian Starseed. Your soul originates from the Pleiades star cluster, bringing healing frequencies and advanced spiritual knowledge to Earth. You're naturally drawn to helping others awaken their consciousness.`
+      content: `Based on your birth date of ${userData.birthday} and the current 2025 cosmic alignments, your soul carries ancient starlight wisdom. Venus in Libra this September enhances your natural healing abilities and divine partnerships. You're being called to step into your role as a cosmic lightworker during this powerful time.`
     },
     {
       id: "guidance",
@@ -60,7 +60,7 @@ export const Dashboard = ({ userData }: DashboardProps) => {
       description: "Messages from your guides",
       icon: Sparkles,
       color: "primary",
-      content: "Your guides want you to know that you're on the right path. Trust your intuition today and pay attention to synchronicities. The universe is aligning to manifest your dreams. Stay open to unexpected opportunities."
+      content: "September 17, 2025: Your guides are speaking through powerful synchronicities today. With Venus entering Libra and Mercury now direct, divine partnerships and clear communication are highlighted. The collective energy theme is 'Divine Love and Sacred Partnerships' - manifestation power is at 9/10. Trust the cosmic timing."
     },
     {
       id: "rituals",
@@ -68,7 +68,7 @@ export const Dashboard = ({ userData }: DashboardProps) => {
       description: "Manifestation practices",
       icon: Moon,
       color: "accent", 
-      content: "Tonight's New Moon in your sign is perfect for manifestation. Light a white candle, write your intentions on paper, and visualize your dreams as already fulfilled. End with gratitude and release the paper to the universe."
+      content: "The Waning Crescent Moon in Cancer creates perfect energy for releasing what no longer serves and nurturing new dreams. With Jupiter's trine to Saturn active, your manifestations have solid foundation energy. Tonight, perform a sacred water ritual to cleanse and rebirth your intentions."
     },
     {
       id: "crystals",
@@ -84,7 +84,7 @@ export const Dashboard = ({ userData }: DashboardProps) => {
       description: "Current astrological influences",
       icon: Calendar,
       color: "accent",
-      content: "Venus is entering your house of manifestation this week, bringing powerful energy to your dreams and desires. Mercury retrograde ends tomorrow, clearing communication blocks. This is an excellent time for new beginnings."
+      content: "September 2025 Cosmic Forecast: Venus in Libra activates divine love frequencies. Jupiter trine Saturn creates stability for long-term manifestations. Pluto sextile Neptune brings spiritual transformation. Mercury direct clears all communication channels. Manifestation power at peak levels!"
     }
   ];
 
