@@ -11,6 +11,7 @@ import {
   Zap,
   Heart
 } from "lucide-react";
+import { useAstronomicalData } from "@/hooks/useAstronomicalData";
 
 interface SpiritualGuidanceCardProps {
   userData: {
@@ -22,48 +23,38 @@ interface SpiritualGuidanceCardProps {
 
 export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { astronomicalData, loading, error } = useAstronomicalData();
   
-  // Calculate current cosmic data for today
-  const currentDate = new Date();
-  const dayOfMonth = currentDate.getDate();
+  // Use real astronomical data or fallback
+  const moonPhase = astronomicalData?.moonPhase || { name: "Loading...", emoji: "🌙", illumination: 0 };
+  const venus = astronomicalData?.planetaryPositions?.venus || { sign: "Loading...", degrees: 0, minutes: 0 };
   
-  // Dynamic moon phase calculation based on actual 2025 lunar calendar
-  let moonPhase = "New Moon";
-  let moonEmoji = "🌑";
-  
-  // September 2025 - Corrected for actual lunar cycle
-  // New Moon is around September 21, 2025
-  if (currentDate.getMonth() === 8 && dayOfMonth >= 20 && dayOfMonth <= 22) {
-    moonPhase = "New Moon";
-    moonEmoji = "🌑";
-  } else if (dayOfMonth <= 7) {
-    moonPhase = "Waxing Crescent";
-    moonEmoji = "🌒";
-  } else if (dayOfMonth <= 14) {
-    moonPhase = "First Quarter";
-    moonEmoji = "🌓";
-  } else if (dayOfMonth <= 21) {
-    moonPhase = "Waxing Gibbous";
-    moonEmoji = "🌔";
-  } else if (dayOfMonth <= 28) {
-    moonPhase = "Waning Crescent";
-    moonEmoji = "🌘";
-  } else {
-    moonPhase = "New Moon";
-    moonEmoji = "🌑";
-  }
-
-  // Calculate manifestation power based on current date
-  const manifestationPower = ((dayOfMonth % 10) + 5);
+  // Calculate manifestation power based on moon phase and planetary positions
+  const manifestationPower = astronomicalData ? 
+    Math.round((moonPhase.illumination / 100) * 10) + Math.floor(Math.random() * 3) :
+    7;
   
   const getCurrentDateFormatted = () => {
-    return currentDate.toLocaleDateString('en-US', { 
+    return new Date().toLocaleDateString('en-US', { 
       weekday: 'long', 
       year: 'numeric', 
       month: 'long', 
       day: 'numeric' 
     });
   };
+
+  if (loading) {
+    return (
+      <Card className="card-cosmic">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <span className="ml-2">Calculating cosmic alignments...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card className="card-cosmic">
@@ -88,8 +79,8 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
         {/* Current Cosmic Alignment */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center space-y-2">
-            <div className="text-2xl">{moonEmoji}</div>
-            <div className="text-sm font-medium">{moonPhase}</div>
+            <div className="text-2xl">{moonPhase.emoji}</div>
+            <div className="text-sm font-medium">{moonPhase.name}</div>
             <div className="text-xs text-muted-foreground">Moon Phase</div>
           </div>
           
@@ -101,8 +92,8 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
           
           <div className="text-center space-y-2">
             <Sun className="w-6 h-6 text-primary mx-auto" />
-            <div className="text-sm font-medium">Venus in Virgo</div>
-            <div className="text-xs text-muted-foreground">Healing Energy</div>
+            <div className="text-sm font-medium">Venus in {venus.sign}</div>
+            <div className="text-xs text-muted-foreground">{venus.degrees}° {venus.minutes}'</div>
           </div>
           
           <div className="text-center space-y-2">
@@ -131,7 +122,7 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
               </>
             ) : (
               <>
-                The cosmic energies of September 2025 are calling you to embrace your divine purpose. Your soul's mission of {userData.dreams} is aligned with the current {moonPhase} energy, amplifying your manifestation abilities. The universe is supporting your journey through Venus in Virgo, bringing healing precision and sacred service into your awareness. Trust in your inner wisdom and allow the current cosmic frequencies to guide your next steps on your spiritual path.
+                The cosmic energies of September 2025 are calling you to embrace your divine purpose. Your soul's mission of {userData.dreams} is aligned with the current {moonPhase.name} energy, amplifying your manifestation abilities. The universe is supporting your journey through Venus in {venus.sign}, bringing {getVenusSignEnergy(venus.sign)} into your awareness. Trust in your inner wisdom and allow the current cosmic frequencies to guide your next steps on your spiritual path.
                 <button 
                   onClick={() => setIsExpanded(false)}
                   className="text-primary hover:text-primary/80 ml-1 underline"
@@ -162,3 +153,22 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
     </Card>
   );
 };
+
+// Helper function to get Venus sign energy description
+function getVenusSignEnergy(sign: string): string {
+  const energies: Record<string, string> = {
+    "Aries": "dynamic passion and new beginnings",
+    "Taurus": "grounded love and material abundance", 
+    "Gemini": "communication and mental connections",
+    "Cancer": "nurturing emotions and family bonds",
+    "Leo": "creative self-expression and heart-centered love",
+    "Virgo": "healing precision and sacred service",
+    "Libra": "divine love and sacred partnerships",
+    "Scorpio": "transformative depth and soul connections",
+    "Sagittarius": "philosophical love and spiritual expansion",
+    "Capricorn": "committed partnerships and practical love",
+    "Aquarius": "unconventional love and humanitarian connection",
+    "Pisces": "compassionate love and spiritual unity"
+  };
+  return energies[sign] || "divine cosmic energy";
+}
