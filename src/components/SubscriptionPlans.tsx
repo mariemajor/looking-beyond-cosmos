@@ -37,7 +37,12 @@ const PLANS = {
     ]
   },
   premium: {
-    name: "Looking Beyond",
+    name: (
+      <span>
+        <span className="text-primary">Looking</span>{" "}
+        <span className="text-accent">Beyond</span>
+      </span>
+    ),
     price: "$9.99",
     period: "month",
     priceId: "price_1S714F9C3SDwSAb1TuZmvccz",

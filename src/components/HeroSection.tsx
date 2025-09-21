@@ -43,7 +43,7 @@ export const HeroSection = ({ onGetStarted }: HeroSectionProps) => {
           <h1 className="text-6xl md:text-8xl font-playfair font-bold mb-4">
             <span className="text-shimmer">Looking</span>
             <br />
-            <span className="text-foreground">Beyond</span>
+            <span className="text-accent">Beyond</span>
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed mb-6">

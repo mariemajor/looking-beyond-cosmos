@@ -49,7 +49,13 @@ export const SubscriptionGate = ({
           <Star className="w-5 h-5 text-accent" />
         </CardTitle>
         <CardDescription className="text-base">
-          {description || `Unlock ${feature} with Looking Beyond premium`}
+          {description || (
+            <span>
+              Unlock {feature} with{" "}
+              <span className="text-primary">Looking</span>{" "}
+              <span className="text-accent">Beyond</span> premium
+            </span>
+          )}
         </CardDescription>
       </CardHeader>
       

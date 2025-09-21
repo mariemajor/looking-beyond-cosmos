@@ -106,7 +106,10 @@ export const Dashboard = ({ userData }: DashboardProps) => {
   const renderNavigationSidebar = () => (
     <div className="w-64 bg-background/80 backdrop-blur-sm border-r border-primary/20 min-h-screen p-6">
       <div className="mb-8">
-        <h2 className="text-xl font-playfair font-bold mb-2">Looking Beyond</h2>
+        <h2 className="text-xl font-playfair font-bold mb-2">
+          <span className="text-primary">Looking</span>{" "}
+          <span className="text-accent">Beyond</span>
+        </h2>
         <p className="text-sm text-muted-foreground">Your Spiritual Journey</p>
       </div>
 
