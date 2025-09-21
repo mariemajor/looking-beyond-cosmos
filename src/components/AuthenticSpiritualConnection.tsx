@@ -15,10 +15,12 @@ import {
   Zap,
   Moon,
   Sun,
-  Gem
+  Gem,
+  MessageCircle
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { SpiritualGuideChat } from "./SpiritualGuideChat";
 
 interface UserData {
   name: string;
@@ -273,8 +275,9 @@ Remember: This guidance comes through your own soul's wisdom. Trust your inner k
       </div>
 
       <Tabs defaultValue="guides" className="space-y-8">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="guides">Spirit Guides</TabsTrigger>
+          <TabsTrigger value="chat">AI Guide Chat</TabsTrigger>
           <TabsTrigger value="akashic">Akashic Records</TabsTrigger>
           <TabsTrigger value="cosmic">Cosmic Alignment</TabsTrigger>
         </TabsList>
@@ -320,6 +323,21 @@ Remember: This guidance comes through your own soul's wisdom. Trust your inner k
               )}
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="chat" className="space-y-6">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <MessageCircle className="w-8 h-8 text-primary" />
+            </div>
+            <h2 className="text-2xl font-playfair font-bold mb-2">AI Spirit Guide Facilitator</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              This AI helps facilitate communication with your spirit guides through sacred protection protocols. 
+              It channels guidance for your highest good while maintaining spiritual safety.
+            </p>
+          </div>
+          
+          <SpiritualGuideChat userData={userData} isPremium={isPremium} />
         </TabsContent>
 
         <TabsContent value="akashic" className="space-y-6">
