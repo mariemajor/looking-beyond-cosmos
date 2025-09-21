@@ -40,6 +40,10 @@ const Index = () => {
     setCurrentView('onboarding');
   };
 
+  const handleEditProfile = () => {
+    setCurrentView('onboarding');
+  };
+
   return (
     <main className="relative">
       {currentView === 'hero' && (
@@ -68,7 +72,7 @@ const Index = () => {
       )}
       
       {currentView === 'dashboard' && userData && (
-        <Dashboard userData={userData} />
+        <Dashboard userData={userData} onEditProfile={handleEditProfile} />
       )}
     </main>
   );

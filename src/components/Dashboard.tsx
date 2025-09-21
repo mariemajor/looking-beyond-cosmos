@@ -36,9 +36,10 @@ interface UserData {
 
 interface DashboardProps {
   userData: UserData;
+  onEditProfile?: () => void;
 }
 
-export const Dashboard = ({ userData }: DashboardProps) => {
+export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
   const [activeView, setActiveView] = useState<'home' | 'manifestation' | 'chat' | 'profile' | 'subscription'>('home');
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const subscription = useSubscription();
@@ -158,9 +159,22 @@ export const Dashboard = ({ userData }: DashboardProps) => {
               <h1 className="text-4xl md:text-6xl font-playfair font-bold mb-4">
                 Welcome, <span className="text-shimmer">{userData.name}</span>
               </h1>
-              <p className="text-xl text-muted-foreground mb-6">
-                Your cosmic journey awaits • Born {new Date(userData.birthday).toLocaleDateString()}
-              </p>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <p className="text-xl text-muted-foreground">
+                  Your cosmic journey awaits • Born {new Date(userData.birthday).toLocaleDateString()}
+                </p>
+                {onEditProfile && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={onEditProfile}
+                    className="text-xs opacity-70 hover:opacity-100"
+                  >
+                    <Settings className="w-3 h-3 mr-1" />
+                    Edit
+                  </Button>
+                )}
+              </div>
             </div>
 
             {/* Daily Guidance Card */}
