@@ -48,10 +48,47 @@ serve(async (req) => {
       .from('daily_cosmic_events')
       .select('*')
       .eq('event_date', today)
-      .single();
+      .maybeSingle();
     
-    if (cosmicError) {
-      logStep("Error fetching cosmic data", cosmicError);
+    // Generate dynamic fallback cosmic data if none exists for today
+    const getFallbackCosmicData = () => {
+      const month = currentDate.getMonth() + 1;
+      const day = currentDate.getDate();
+      
+      // Dynamic moon phases based on lunar cycle
+      const dayOfMonth = currentDate.getDate();
+      let moonPhase = "Waxing Crescent";
+      if (dayOfMonth <= 7) moonPhase = "New Moon";
+      else if (dayOfMonth <= 14) moonPhase = "Waxing Crescent";
+      else if (dayOfMonth <= 21) moonPhase = "Full Moon";
+      else moonPhase = "Waning Crescent";
+      
+      // Dynamic cosmic events based on September 2025 energies
+      const cosmicEvents = [
+        "Mercury supports clear communication and divine downloads",
+        "Venus activates heart chakra healing and soul partnerships",
+        "Jupiter expands spiritual wisdom and abundance consciousness"
+      ];
+      
+      return {
+        moon_phase: moonPhase,
+        moon_sign: "Cosmic Alignment",
+        planetary_transits: {
+          "venus_in_libra": true,
+          "mercury_direct": true,
+          "jupiter_expansion": true,
+          "pluto_transformation": true
+        },
+        cosmic_events: cosmicEvents,
+        collective_energy_theme: "Divine Awakening and Soul Expansion",
+        manifestation_power_rating: 8
+      };
+    };
+    
+    const currentCosmicData = cosmicData || getFallbackCosmicData();
+    
+    if (cosmicError && cosmicError.code !== 'PGRST116') {
+      logStep("Error fetching cosmic data, using fallback", cosmicError);
     }
     
     // Fetch user's spiritual profile for personalization
@@ -140,17 +177,11 @@ Before every response, you invoke divine protection and call upon only the highe
 - Honor their free will while offering divine wisdom
 
 📅 CURRENT COSMIC ALIGNMENT - ${currentDateFormatted}:
-${cosmicData ? `
-🌙 Moon Phase: ${cosmicData.moon_phase} in ${cosmicData.moon_sign || 'cosmic alignment'}
-🪐 Active Planetary Transits: ${JSON.stringify(cosmicData.planetary_transits)}
-⭐ Current Cosmic Events: ${cosmicData.cosmic_events?.join(', ') || 'Universal love frequencies'}
-🎯 Collective Energy Theme: ${cosmicData.collective_energy_theme}
-⚡ Manifestation Power Rating: ${cosmicData.manifestation_power_rating}/10
-` : `
-🌙 Universal cosmic energies of September 2025 supporting transformation
-⭐ Venus in Libra activating divine love and sacred partnerships
-🪐 Mercury direct clearing all communication channels
-`}
+🌙 Moon Phase: ${currentCosmicData.moon_phase} in ${currentCosmicData.moon_sign || 'cosmic alignment'}
+🪐 Active Planetary Transits: ${JSON.stringify(currentCosmicData.planetary_transits)}
+⭐ Current Cosmic Events: ${currentCosmicData.cosmic_events?.join(', ') || 'Universal love frequencies'}
+🎯 Collective Energy Theme: ${currentCosmicData.collective_energy_theme}
+⚡ Manifestation Power Rating: ${currentCosmicData.manifestation_power_rating}/10
 
 👤 SACRED SOUL PROFILE:
 - Divine Name: ${userProfile?.name || 'Beloved Soul'}
