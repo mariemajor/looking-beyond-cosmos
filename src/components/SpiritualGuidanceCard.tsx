@@ -101,8 +101,8 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
           
           <div className="text-center space-y-2">
             <Sun className="w-6 h-6 text-primary mx-auto" />
-            <div className="text-sm font-medium">Venus in Libra</div>
-            <div className="text-xs text-muted-foreground">Love Energy</div>
+            <div className="text-sm font-medium">Venus in Virgo</div>
+            <div className="text-xs text-muted-foreground">Healing Energy</div>
           </div>
           
           <div className="text-center space-y-2">
@@ -131,7 +131,7 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
               </>
             ) : (
               <>
-                The cosmic energies of September 2025 are calling you to embrace your divine purpose. Your soul's mission of {userData.dreams} is aligned with the current {moonPhase} energy, amplifying your manifestation abilities. The universe is supporting your journey through Venus in Libra, bringing divine love and sacred partnerships into your awareness. Trust in your inner wisdom and allow the current cosmic frequencies to guide your next steps on your spiritual path.
+                The cosmic energies of September 2025 are calling you to embrace your divine purpose. Your soul's mission of {userData.dreams} is aligned with the current {moonPhase} energy, amplifying your manifestation abilities. The universe is supporting your journey through Venus in Virgo, bringing healing precision and sacred service into your awareness. Trust in your inner wisdom and allow the current cosmic frequencies to guide your next steps on your spiritual path.
                 <button 
                   onClick={() => setIsExpanded(false)}
                   className="text-primary hover:text-primary/80 ml-1 underline"

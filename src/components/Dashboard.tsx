@@ -68,7 +68,7 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
       description: "Discover your galactic heritage",
       icon: Star,
       color: "accent",
-      content: `Based on your birth date of ${userData.birthday} and the current 2025 cosmic alignments, your soul carries ancient starlight wisdom. Venus in Libra this September enhances your natural healing abilities and divine partnerships. You're being called to step into your role as a cosmic lightworker during this powerful time.`
+      content: `Based on your birth date of ${userData.birthday} and the current 2025 cosmic alignments, your soul carries ancient starlight wisdom. Venus in Virgo this September enhances your natural healing abilities and service to others. You're being called to step into your role as a cosmic lightworker during this powerful time.`
     },
     {
       id: "guidance",
@@ -76,7 +76,7 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
       description: "Messages from your guides",
       icon: Sparkles,
       color: "primary",
-      content: "September 21, 2025: Your guides are speaking through powerful synchronicities today. With Venus entering Libra and Mercury now direct, divine partnerships and clear communication are highlighted. The collective energy theme is 'Divine Love and Sacred Partnerships' - manifestation power is at 9/10. Trust the cosmic timing."
+      content: "September 21, 2025: Your guides are speaking through powerful synchronicities today. With Venus in Virgo and Mercury direct, healing work and clear communication are highlighted. The collective energy theme is 'Sacred Service and Divine Healing' - manifestation power is at 9/10. Trust the cosmic timing."
     },
     {
       id: "rituals",
@@ -100,7 +100,7 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
       description: "Current astrological influences",
       icon: Calendar,
       color: "accent",
-      content: "September 2025 Cosmic Forecast: Venus in Libra activates divine love frequencies. Jupiter trine Saturn creates stability for long-term manifestations. Pluto sextile Neptune brings spiritual transformation. Mercury direct clears all communication channels. Manifestation power at peak levels!"
+      content: "September 2025 Cosmic Forecast: Venus in Virgo activates healing and service frequencies. Jupiter trine Saturn creates stability for long-term manifestations. Pluto sextile Neptune brings spiritual transformation. Mercury direct clears all communication channels. New Moon in Virgo brings fresh starts!"
     }
   ];
 
