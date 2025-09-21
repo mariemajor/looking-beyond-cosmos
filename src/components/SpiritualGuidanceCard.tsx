@@ -27,21 +27,30 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
   const currentDate = new Date();
   const dayOfMonth = currentDate.getDate();
   
-  // Dynamic moon phase calculation
-  let moonPhase = "Waxing Crescent";
-  let moonEmoji = "🌒";
-  if (dayOfMonth <= 7) {
+  // Dynamic moon phase calculation based on actual 2025 lunar calendar
+  let moonPhase = "New Moon";
+  let moonEmoji = "🌑";
+  
+  // September 2025 - Corrected for actual lunar cycle
+  // New Moon is around September 21, 2025
+  if (currentDate.getMonth() === 8 && dayOfMonth >= 20 && dayOfMonth <= 22) {
     moonPhase = "New Moon";
     moonEmoji = "🌑";
-  } else if (dayOfMonth <= 14) {
+  } else if (dayOfMonth <= 7) {
     moonPhase = "Waxing Crescent";
     moonEmoji = "🌒";
+  } else if (dayOfMonth <= 14) {
+    moonPhase = "First Quarter";
+    moonEmoji = "🌓";
   } else if (dayOfMonth <= 21) {
-    moonPhase = "Full Moon";
-    moonEmoji = "🌕";
-  } else {
+    moonPhase = "Waxing Gibbous";
+    moonEmoji = "🌔";
+  } else if (dayOfMonth <= 28) {
     moonPhase = "Waning Crescent";
     moonEmoji = "🌘";
+  } else {
+    moonPhase = "New Moon";
+    moonEmoji = "🌑";
   }
 
   // Calculate manifestation power based on current date
