@@ -17,7 +17,7 @@ export const SubscriptionGate = ({
   description,
   showUpgrade 
 }: SubscriptionGateProps) => {
-  const { subscribed, loading } = useSubscription();
+  const { subscribed, tier, loading } = useSubscription();
 
   if (loading) {
     return (
@@ -33,7 +33,7 @@ export const SubscriptionGate = ({
     );
   }
 
-  if (subscribed) {
+  if (subscribed && tier === 'premium') {
     return <>{children}</>;
   }
 

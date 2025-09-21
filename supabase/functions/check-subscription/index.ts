@@ -49,7 +49,12 @@ serve(async (req) => {
     
     if (customers.data.length === 0) {
       logStep("No customer found, updating unsubscribed state");
-      return new Response(JSON.stringify({ subscribed: false }), {
+      return new Response(JSON.stringify({ 
+        subscribed: false,
+        tier: 'free',
+        product_id: null,
+        subscription_end: null 
+      }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
@@ -66,20 +71,26 @@ serve(async (req) => {
     const hasActiveSub = subscriptions.data.length > 0;
     let productId = null;
     let subscriptionEnd = null;
+    let tier = 'free';
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
       subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
       logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
-      // Get product ID from subscription
+      
       productId = subscription.items.data[0].price.product;
-      logStep("Determined subscription tier", { productId });
+      // Map product ID to tier
+      if (productId === 'prod_T68jajLjavU24o') {
+        tier = 'premium';
+      }
+      logStep("Determined subscription tier", { productId, tier });
     } else {
       logStep("No active subscription found");
     }
 
     return new Response(JSON.stringify({
       subscribed: hasActiveSub,
+      tier: tier,
       product_id: productId,
       subscription_end: subscriptionEnd
     }), {

@@ -135,14 +135,14 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
         })}
       </nav>
 
-      {subscription.subscribed && (
+      {subscription.subscribed && subscription.tier === 'premium' && (
         <div className="mt-8 p-4 bg-gradient-cosmic rounded-lg border border-primary/20">
           <div className="flex items-center gap-2 mb-2">
             <Crown className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium">Premium Active</span>
+            <span className="text-sm font-medium">Divine Channel Active</span>
           </div>
           <p className="text-xs text-muted-foreground">
-            Unlimited access to all features
+            Unlimited personalized spiritual guidance
           </p>
         </div>
       )}
@@ -177,7 +177,7 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
               </div>
             </div>
 
-            {/* Daily Guidance Card */}
+            {/* Daily Spiritual Guidance */}
             <SpiritualGuidanceCard userData={userData} />
 
             {/* Spiritual Sections Grid */}
@@ -308,7 +308,11 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
         return (
           <div className="max-w-6xl mx-auto">
             <SubscriptionPlans 
-              currentPlan={subscription} 
+              currentPlan={{
+                subscribed: subscription.subscribed,
+                product_id: subscription.product_id,
+                subscription_end: subscription.subscription_end
+              }}
               onSubscriptionUpdate={subscription.refreshSubscription}
             />
           </div>

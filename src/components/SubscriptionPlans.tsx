@@ -17,46 +17,42 @@ interface SubscriptionPlansProps {
 
 const PLANS = {
   free: {
-    name: "Spiritual Journey - Free",
+    name: "Soul Seeker",
     price: "$0",
     period: "forever",
     priceId: null,
     productId: "free",
-    description: "Begin your cosmic awakening",
+    description: "Perfect for beginning your spiritual journey",
     features: [
-      "Daily spiritual guidance",
-      "Basic Akashic Records access",
-      "Simple manifestation practices",
-      "Community support",
-      "3 AI conversations per day"
+      "Basic daily soul guidance",
+      "Soul number calculation",
+      "One crystal recommendation", 
+      "Akashic Records overview",
+      "Basic grounding ritual"
     ],
     limitations: [
-      "Limited AI interactions",
-      "Basic content only",
-      "No premium rituals"
+      "Limited to basic content",
+      "Same message for all users",
+      "No personalized AI channeling"
     ]
   },
   premium: {
-    name: (
-      <span>
-        <span className="text-primary">Looking</span>{" "}
-        <span className="text-accent">Beyond</span>
-      </span>
-    ),
-    price: "$9.99",
-    period: "month",
-    priceId: "price_1S714F9C3SDwSAb1TuZmvccz",
-    productId: "prod_T37Iowdno9f6bU",
-    description: "Unlock your full cosmic potential",
+    name: "Divine Channel",
+    price: "$19.99",
+    period: "month", 
+    priceId: "price_1S9wRk9C3SDwSAb1WhADlUo0",
+    productId: "prod_T68jajLjavU24o",
+    description: "AI-powered personalized spiritual guidance",
     features: [
-      "Unlimited AI spiritual guidance",
-      "Complete Akashic Records access",
-      "Advanced manifestation rituals",
-      "Personalized starseed readings",
-      "Premium crystal recommendations",
-      "Moon phase manifestation guides",
-      "Priority cosmic event alerts",
-      "Exclusive meditation practices"
+      "Personalized AI channeling from your guides daily",
+      "Fresh daily joy spells, love spells & rituals",
+      "Deep personalized Akashic readings",
+      "Advanced manifestation tracking",
+      "Custom meditations for your soul path",
+      "Moon cycle guidance aligned with your goals", 
+      "Progress journaling that learns from your growth",
+      "Unlimited crystal work with specific intentions",
+      "Priority spiritual guidance support"
     ]
   }
 };

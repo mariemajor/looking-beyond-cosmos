@@ -25,9 +25,9 @@ serve(async (req) => {
   try {
     logStep("Function started");
 
-    const { priceId } = await req.json();
-    if (!priceId) throw new Error("Price ID is required");
-    logStep("Price ID received", { priceId });
+    // Use the premium price ID directly
+    const priceId = 'price_1S9wRk9C3SDwSAb1WhADlUo0';
+    logStep("Using premium price ID", { priceId });
 
     const authHeader = req.headers.get("Authorization")!;
     const token = authHeader.replace("Bearer ", "");
@@ -58,8 +58,8 @@ serve(async (req) => {
         },
       ],
       mode: "subscription",
-      success_url: `${req.headers.get("origin")}/success`,
-      cancel_url: `${req.headers.get("origin")}/`,
+      success_url: `${req.headers.get("origin")}/?subscription=success`,
+      cancel_url: `${req.headers.get("origin")}/?subscription=cancelled`,
     });
 
     logStep("Checkout session created", { sessionId: session.id, url: session.url });

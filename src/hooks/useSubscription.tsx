@@ -4,6 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 
 interface SubscriptionStatus {
   subscribed: boolean;
+  tier: 'free' | 'premium';
   product_id?: string;
   subscription_end?: string;
   loading: boolean;
@@ -13,6 +14,7 @@ interface SubscriptionStatus {
 export const useSubscription = () => {
   const [status, setStatus] = useState<SubscriptionStatus>({
     subscribed: false,
+    tier: 'free',
     loading: true
   });
   const { toast } = useToast();
@@ -26,6 +28,7 @@ export const useSubscription = () => {
       if (!session) {
         setStatus({
           subscribed: false,
+          tier: 'free',
           loading: false
         });
         return;
@@ -37,6 +40,7 @@ export const useSubscription = () => {
         console.error('Subscription check error:', error);
         setStatus({
           subscribed: false,
+          tier: 'free',
           loading: false,
           error: error.message
         });
@@ -45,6 +49,7 @@ export const useSubscription = () => {
 
       setStatus({
         subscribed: data?.subscribed || false,
+        tier: data?.tier || 'free',
         product_id: data?.product_id,
         subscription_end: data?.subscription_end,
         loading: false
@@ -54,6 +59,7 @@ export const useSubscription = () => {
       console.error('Subscription check failed:', error);
       setStatus({
         subscribed: false,
+        tier: 'free',
         loading: false,
         error: error instanceof Error ? error.message : 'Unknown error'
       });
@@ -71,6 +77,7 @@ export const useSubscription = () => {
         } else if (event === 'SIGNED_OUT') {
           setStatus({
             subscribed: false,
+            tier: 'free',
             loading: false
           });
         }
