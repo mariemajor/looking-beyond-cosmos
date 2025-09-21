@@ -86,17 +86,20 @@ export const SpiritualProfileSetup = ({ onComplete, onSkip }: SpiritualProfileSe
         .single();
 
       const lifePath = profile?.birth_date ? calculateLifePath(profile.birth_date) : null;
+      const userId = (await supabase.auth.getUser()).data.user?.id;
 
       const { error } = await supabase
         .from('user_spiritual_profiles')
         .upsert({
-          user_id: (await supabase.auth.getUser()).data.user?.id,
+          user_id: userId,
           birth_time: birthTime || null,
           birth_location: birthLocation || null,
           starseed_origins: selectedStarseeds,
           soul_contract: soulContract || null,
           life_path_number: lifePath,
           akashic_records_access_level: 'enhanced'
+        }, {
+          onConflict: 'user_id'
         });
 
       if (error) throw error;
