@@ -33,6 +33,7 @@ interface UserData {
 
 interface SpiritualChatProps {
   userData: UserData;
+  isPremium?: boolean;
   onBack?: () => void;
 }
 
