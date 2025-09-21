@@ -289,6 +289,7 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
           <div className="h-full">
             <SpiritualChat 
               userData={userData} 
+              isPremium={subscription.subscribed && subscription.tier === 'premium'}
               onBack={() => setActiveView('home')}
             />
           </div>
