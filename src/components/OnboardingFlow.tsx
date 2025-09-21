@@ -26,7 +26,7 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
   });
 
   const handleNext = () => {
-    if (step < 3) {
+    if (step < 4) {  // Changed from 3 to 4
       setStep(step + 1);
     } else {
       onComplete(formData);
@@ -49,6 +49,8 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
         return formData.birthday.trim().length > 0;
       case 3:
         return formData.dreams.trim().length > 0;
+      case 4:
+        return true; // Final step confirmation
       default:
         return false;
     }
@@ -60,7 +62,7 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
         {/* Progress Indicator */}
         <div className="mb-8">
           <div className="flex justify-center items-center gap-4 mb-4">
-            {[1, 2, 3].map((stepNum) => (
+            {[1, 2, 3, 4].map((stepNum) => (
               <div key={stepNum} className="flex items-center">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
@@ -71,7 +73,7 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
                 >
                   {stepNum}
                 </div>
-                {stepNum < 3 && (
+                {stepNum < 4 && (
                   <div
                     className={`w-16 h-1 mx-2 transition-all ${
                       stepNum < step ? "bg-primary" : "bg-muted"
@@ -81,7 +83,7 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
               </div>
             ))}
           </div>
-          <p className="text-center text-muted-foreground">Step {step} of 3</p>
+          <p className="text-center text-muted-foreground">Step {step} of 4</p>
         </div>
 
         <Card className="card-cosmic">
@@ -90,16 +92,19 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
               {step === 1 && <Sparkles className="w-8 h-8 text-primary" />}
               {step === 2 && <Calendar className="w-8 h-8 text-primary" />}
               {step === 3 && <Heart className="w-8 h-8 text-primary" />}
+              {step === 4 && <Scroll className="w-8 h-8 text-primary floating" />}
             </div>
             <CardTitle className="text-2xl font-playfair">
               {step === 1 && "Welcome, Cosmic Soul"}
               {step === 2 && "Your Celestial Blueprint"}
               {step === 3 && "Your Heart's Desires"}
+              {step === 4 && "Ready for Your Journey"}
             </CardTitle>
             <CardDescription className="text-lg">
               {step === 1 && "Let us know your name so we can channel your personal guidance"}
               {step === 2 && "Your birthday helps us align with your astrological energies"}
               {step === 3 && "Share your dreams so we can guide your manifestation journey"}
+              {step === 4 && "Your cosmic profile is complete. Let's unlock your spiritual guidance!"}
             </CardDescription>
           </CardHeader>
 
@@ -158,6 +163,22 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
               </div>
             )}
 
+            {step === 4 && (
+              <div className="space-y-6 text-center">
+                <div className="bg-gradient-cosmic p-6 rounded-lg text-primary-foreground">
+                  <h3 className="text-xl font-semibold mb-3">🌟 Your Sacred Profile Summary</h3>
+                  <div className="space-y-2 text-sm">
+                    <p><strong>Divine Name:</strong> {formData.name}</p>
+                    <p><strong>Birth Date:</strong> {new Date(formData.birthday).toLocaleDateString()}</p>
+                    <p><strong>Dreams:</strong> {formData.dreams.substring(0, 100)}...</p>
+                  </div>
+                </div>
+                <p className="text-muted-foreground">
+                  Your unique cosmic blueprint will now be created with real 2025 astrology and personalized spiritual guidance.
+                </p>
+              </div>
+            )}
+
             <div className="flex gap-4 pt-6">
               <Button
                 variant="ethereal"
@@ -175,7 +196,7 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
                 disabled={!isStepValid()}
                 className="flex-1"
               >
-                {step === 3 ? (
+                {step === 4 ? (
                   <>
                     <Scroll className="w-5 h-5 mr-2" />
                     Open Akashic Records

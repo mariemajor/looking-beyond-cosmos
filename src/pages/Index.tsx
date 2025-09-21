@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { HeroSection } from "@/components/HeroSection";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
+import { SpiritualProfileSetup } from "@/components/SpiritualProfileSetup";
 import { Dashboard } from "@/components/Dashboard";
 import { Auth } from "@/pages/Auth";
 
@@ -11,7 +12,7 @@ interface UserData {
 }
 
 const Index = () => {
-  const [currentView, setCurrentView] = useState<'hero' | 'auth' | 'onboarding' | 'dashboard'>('hero');
+  const [currentView, setCurrentView] = useState<'hero' | 'auth' | 'onboarding' | 'spiritual-profile' | 'dashboard'>('hero');
   const [userData, setUserData] = useState<UserData | null>(null);
 
   const handleGetStarted = () => {
@@ -20,6 +21,14 @@ const Index = () => {
 
   const handleOnboardingComplete = (data: UserData) => {
     setUserData(data);
+    setCurrentView('spiritual-profile');
+  };
+
+  const handleSpiritualProfileComplete = () => {
+    setCurrentView('dashboard');
+  };
+
+  const handleSpiritualProfileSkip = () => {
     setCurrentView('dashboard');
   };
 
@@ -48,6 +57,13 @@ const Index = () => {
         <OnboardingFlow 
           onComplete={handleOnboardingComplete}
           onBack={handleBackToHero}
+        />
+      )}
+      
+      {currentView === 'spiritual-profile' && (
+        <SpiritualProfileSetup 
+          onComplete={handleSpiritualProfileComplete}
+          onSkip={handleSpiritualProfileSkip}
         />
       )}
       
