@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { SubscriptionPlans } from "@/components/SubscriptionPlans";
 import { SubscriptionGate } from "@/components/SubscriptionGate";
-import { SpiritualChat } from "@/components/SpiritualChat";
+import { AuthenticSpiritualConnection } from "@/components/AuthenticSpiritualConnection";
 import { SpiritualGuidanceCard } from "@/components/SpiritualGuidanceCard";
 import { DreamManifestationHub } from "@/components/DreamManifestationHub";
 import { SpiritualProfileSetup } from "@/components/SpiritualProfileSetup";
@@ -287,10 +287,9 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
       case 'chat':
         return (
           <div className="h-full">
-            <SpiritualChat 
+            <AuthenticSpiritualConnection 
               userData={userData} 
               isPremium={subscription.subscribed && subscription.tier === 'premium'}
-              onBack={() => setActiveView('home')}
             />
           </div>
         );
