@@ -169,7 +169,7 @@ export const OnboardingFlow = ({ onComplete, onBack }: OnboardingFlowProps) => {
                   <h3 className="text-xl font-semibold mb-3">🌟 Your Sacred Profile Summary</h3>
                   <div className="space-y-2 text-sm">
                     <p><strong>Divine Name:</strong> {formData.name}</p>
-                    <p><strong>Birth Date:</strong> {new Date(formData.birthday).toLocaleDateString()}</p>
+                    <p><strong>Birth Date:</strong> {formData.birthday ? new Date(formData.birthday + 'T00:00:00').toLocaleDateString() : ''}</p>
                     <p><strong>Dreams:</strong> {formData.dreams.substring(0, 100)}...</p>
                   </div>
                 </div>

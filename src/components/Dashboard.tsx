@@ -161,7 +161,7 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
               </h1>
               <div className="flex items-center justify-center gap-4 mb-6">
                 <p className="text-xl text-muted-foreground">
-                  Your cosmic journey awaits • Born {new Date(userData.birthday).toLocaleDateString()}
+                  Your cosmic journey awaits • Born {userData.birthday ? new Date(userData.birthday + 'T00:00:00').toLocaleDateString() : ''}
                 </p>
                 {onEditProfile && (
                   <Button
