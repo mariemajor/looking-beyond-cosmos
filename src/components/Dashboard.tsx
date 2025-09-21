@@ -53,7 +53,7 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
     { id: 'subscription', label: 'Subscription', icon: Crown }
   ];
 
-  const cosmicSections = [
+  const spiritualSections = [
     {
       id: "akashic",
       title: "Akashic Records",
@@ -63,12 +63,12 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
       content: `Welcome ${userData.name}, your Akashic Records reveal a soul that has traveled through many dimensions. You carry the wisdom of ancient civilizations and have incarnated to help humanity's ascension. Your current life purpose involves healing others through your natural empathic abilities.`
     },
     {
-      id: "starseed",
-      title: "Starseed Origins", 
-      description: "Discover your galactic heritage",
+      id: "blueprint", 
+      title: "Soul Blueprint",
+      description: "Discover your soul's sacred design",
       icon: Star,
       color: "accent",
-      content: `Based on your birth date of ${userData.birthday} and the current 2025 cosmic alignments, your soul carries ancient starlight wisdom. Venus in Virgo this September enhances your natural healing abilities and service to others. You're being called to step into your role as a cosmic lightworker during this powerful time.`
+      content: `Based on your birth essence and soul number, your blueprint shows a path of ${userData.dreams}. Your soul chose this lifetime to experience growth through love, creativity, and service. You're being called to step into your role as a lightworker and guide for others.`
     },
     {
       id: "guidance",
@@ -76,31 +76,31 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
       description: "Messages from your guides",
       icon: Sparkles,
       color: "primary",
-      content: "September 21, 2025: Your guides are speaking through powerful synchronicities today. With Venus in Virgo and Mercury direct, healing work and clear communication are highlighted. The collective energy theme is 'Sacred Service and Divine Healing' - manifestation power is at 9/10. Trust the cosmic timing."
-    },
-    {
-      id: "rituals",
-      title: "Sacred Rituals",
-      description: "Manifestation practices",
-      icon: Moon,
-      color: "accent", 
-      content: "The Waning Crescent Moon in Cancer creates perfect energy for releasing what no longer serves and nurturing new dreams. With Jupiter's trine to Saturn active, your manifestations have solid foundation energy. Tonight, perform a sacred water ritual to cleanse and rebirth your intentions."
+      content: "Your spirit guides are communicating through powerful synchronicities today. Trust the signs, symbols, and messages appearing in your life. A period of spiritual expansion is beginning - embrace the changes with an open heart and trust the divine timing."
     },
     {
       id: "crystals",
       title: "Crystal Guidance",
       description: "Healing stone recommendations",
       icon: Gem,
-      color: "primary",
+      color: "accent", 
       content: "Amethyst and Rose Quartz are calling to you today. Amethyst will enhance your spiritual connection and intuition, while Rose Quartz opens your heart to self-love and manifesting your dreams. Carry them with you or place them on your altar."
     },
     {
-      id: "astrology",
-      title: "Cosmic Events",
-      description: "Current astrological influences",
+      id: "rituals",
+      title: "Sacred Rituals",
+      description: "Grounding and manifestation practices",
+      icon: Heart,
+      color: "primary",
+      content: "Tonight's grounding ritual: Light a white candle, hold your favorite crystal, and visualize roots growing from your feet into Mother Earth. Feel her loving energy flowing up through your body, creating a circuit of divine protection and grounding."
+    },
+    {
+      id: "spells",
+      title: "Happy Spells",
+      description: "Positive magic and manifestation",
       icon: Calendar,
       color: "accent",
-      content: "September 2025 Cosmic Forecast: Venus in Virgo activates healing and service frequencies. Jupiter trine Saturn creates stability for long-term manifestations. Pluto sextile Neptune brings spiritual transformation. Mercury direct clears all communication channels. New Moon in Virgo brings fresh starts!"
+      content: "Joy Attraction Spell: Write three things that make you smile on yellow paper. Fold it with dried lavender, hold it to your heart, and speak: 'Joy flows to me and through me, I am a magnet for happiness and light.' Keep it in your pocket for 7 days."
     }
   ];
 
@@ -180,9 +180,9 @@ export const Dashboard = ({ userData, onEditProfile }: DashboardProps) => {
             {/* Daily Guidance Card */}
             <SpiritualGuidanceCard userData={userData} />
 
-            {/* Cosmic Sections Grid */}
+            {/* Spiritual Sections Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {cosmicSections.map((section) => {
+              {spiritualSections.map((section) => {
                 const Icon = section.icon;
                 const isActive = activeSection === section.id;
                 

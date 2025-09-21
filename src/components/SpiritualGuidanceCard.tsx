@@ -5,13 +5,13 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Star, 
   Sparkles, 
-  Moon, 
-  Sun,
+  Heart, 
+  Gem,
   Clock,
-  Zap,
-  Heart
+  Scroll,
+  Wand2
 } from "lucide-react";
-import { useAstronomicalData } from "@/hooks/useAstronomicalData";
+import { getPersonalizedGuidance } from "@/utils/spiritualGuidance";
 
 interface SpiritualGuidanceCardProps {
   userData: {
@@ -23,16 +23,10 @@ interface SpiritualGuidanceCardProps {
 
 export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const { astronomicalData, loading, error } = useAstronomicalData();
   
-  // Use real astronomical data or fallback
-  const moonPhase = astronomicalData?.moonPhase || { name: "Loading...", emoji: "🌙", illumination: 0 };
-  const venus = astronomicalData?.planetaryPositions?.venus || { sign: "Loading...", degrees: 0, minutes: 0 };
-  
-  // Calculate manifestation power based on moon phase and planetary positions
-  const manifestationPower = astronomicalData ? 
-    Math.round((moonPhase.illumination / 100) * 10) + Math.floor(Math.random() * 3) :
-    7;
+  // Calculate soul number from birthday for personalization
+  const soulNumber = calculateSoulNumber(userData.birthday);
+  const energyLevel = calculateEnergyLevel(userData.name);
   
   const getCurrentDateFormatted = () => {
     return new Date().toLocaleDateString('en-US', { 
@@ -43,18 +37,8 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
     });
   };
 
-  if (loading) {
-    return (
-      <Card className="card-cosmic">
-        <CardContent className="p-6">
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            <span className="ml-2">Calculating cosmic alignments...</span>
-          </div>
-        </CardContent>
-      </Card>
-    );
-  }
+  // Get personalized crystal and ritual based on soul number
+  const personalizedGuidance = getPersonalizedGuidance(soulNumber, userData.dreams);
 
   return (
     <Card className="card-cosmic">
@@ -65,41 +49,41 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
               <Star className="w-6 h-6 text-primary floating" />
             </div>
             <div>
-              <CardTitle className="text-xl">Daily Cosmic Guidance</CardTitle>
+              <CardTitle className="text-xl">Daily Soul Guidance</CardTitle>
               <CardDescription>{getCurrentDateFormatted()}</CardDescription>
             </div>
           </div>
           <Badge variant="secondary" className="bg-accent/20 text-accent-foreground">
-            Live 2025 Energy
+            Soul Number {soulNumber}
           </Badge>
         </div>
       </CardHeader>
 
       <CardContent className="space-y-6">
-        {/* Current Cosmic Alignment */}
+        {/* Current Soul Alignment */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center space-y-2">
-            <div className="text-2xl">{moonPhase.emoji}</div>
-            <div className="text-sm font-medium">{moonPhase.name}</div>
-            <div className="text-xs text-muted-foreground">Moon Phase</div>
+            <div className="text-2xl">{personalizedGuidance.crystal.emoji}</div>
+            <div className="text-sm font-medium">{personalizedGuidance.crystal.name}</div>
+            <div className="text-xs text-muted-foreground">Your Crystal</div>
           </div>
           
           <div className="text-center space-y-2">
-            <Zap className="w-6 h-6 text-accent mx-auto" />
-            <div className="text-sm font-medium">{manifestationPower}/10</div>
-            <div className="text-xs text-muted-foreground">Manifestation</div>
+            <Wand2 className="w-6 h-6 text-accent mx-auto" />
+            <div className="text-sm font-medium">{energyLevel}/10</div>
+            <div className="text-xs text-muted-foreground">Soul Energy</div>
           </div>
           
           <div className="text-center space-y-2">
-            <Sun className="w-6 h-6 text-primary mx-auto" />
-            <div className="text-sm font-medium">Venus in {venus.sign}</div>
-            <div className="text-xs text-muted-foreground">{venus.degrees}° {venus.minutes}'</div>
+            <Heart className="w-6 h-6 text-primary mx-auto" />
+            <div className="text-sm font-medium">{personalizedGuidance.theme}</div>
+            <div className="text-xs text-muted-foreground">Today's Theme</div>
           </div>
           
           <div className="text-center space-y-2">
-            <Heart className="w-6 h-6 text-accent mx-auto" />
-            <div className="text-sm font-medium">Awakening</div>
-            <div className="text-xs text-muted-foreground">Soul Phase</div>
+            <Scroll className="w-6 h-6 text-accent mx-auto" />
+            <div className="text-sm font-medium">Open</div>
+            <div className="text-xs text-muted-foreground">Akashic State</div>
           </div>
         </div>
 
@@ -112,7 +96,7 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
           <p className="text-sm text-muted-foreground leading-relaxed">
             {!isExpanded ? (
               <>
-                The cosmic energies of September 2025 are calling you to embrace your divine purpose. Your soul's mission of {userData.dreams.split(' ').slice(0, 5).join(' ')}... 
+                Your soul's blueprint reveals a path of {userData.dreams.split(' ').slice(0, 5).join(' ')}... The Akashic Records show your {personalizedGuidance.crystal.name} crystal resonating with your energy today, supporting your journey of {personalizedGuidance.theme.toLowerCase()}. 
                 <button 
                   onClick={() => setIsExpanded(true)}
                   className="text-primary hover:text-primary/80 ml-1 underline"
@@ -122,7 +106,7 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
               </>
             ) : (
               <>
-                The cosmic energies of September 2025 are calling you to embrace your divine purpose. Your soul's mission of {userData.dreams} is aligned with the current {moonPhase.name} energy, amplifying your manifestation abilities. The universe is supporting your journey through Venus in {venus.sign}, bringing {getVenusSignEnergy(venus.sign)} into your awareness. Trust in your inner wisdom and allow the current cosmic frequencies to guide your next steps on your spiritual path.
+                Your soul's blueprint reveals a beautiful path of {userData.dreams}. The Akashic Records show you came here to experience {personalizedGuidance.theme.toLowerCase()}, and today your {personalizedGuidance.crystal.name} crystal is perfectly aligned with your energy frequency. {personalizedGuidance.message} Trust in your inner wisdom and allow your soul's guidance to illuminate your next steps. You are exactly where you need to be on your sacred journey.
                 <button 
                   onClick={() => setIsExpanded(false)}
                   className="text-primary hover:text-primary/80 ml-1 underline"
@@ -138,37 +122,45 @@ export const SpiritualGuidanceCard = ({ userData }: SpiritualGuidanceCardProps) 
         <div className="flex gap-3">
           <Button size="sm" className="btn-cosmic flex-1">
             <Clock className="w-4 h-4 mr-2" />
-            Get Full Reading
+            Akashic Reading
           </Button>
           <Button variant="outline" size="sm" className="flex-1">
-            <Moon className="w-4 h-4 mr-2" />
-            Moon Ritual
+            <Gem className="w-4 h-4 mr-2" />
+            Crystal Meditation
           </Button>
         </div>
 
         <p className="text-xs text-center text-muted-foreground">
-          Guidance updated daily with real 2025 cosmic alignments
+          Guidance channeled daily from your soul's blueprint and Akashic Records
         </p>
       </CardContent>
     </Card>
   );
 };
 
-// Helper function to get Venus sign energy description
-function getVenusSignEnergy(sign: string): string {
-  const energies: Record<string, string> = {
-    "Aries": "dynamic passion and new beginnings",
-    "Taurus": "grounded love and material abundance", 
-    "Gemini": "communication and mental connections",
-    "Cancer": "nurturing emotions and family bonds",
-    "Leo": "creative self-expression and heart-centered love",
-    "Virgo": "healing precision and sacred service",
-    "Libra": "divine love and sacred partnerships",
-    "Scorpio": "transformative depth and soul connections",
-    "Sagittarius": "philosophical love and spiritual expansion",
-    "Capricorn": "committed partnerships and practical love",
-    "Aquarius": "unconventional love and humanitarian connection",
-    "Pisces": "compassionate love and spiritual unity"
-  };
-  return energies[sign] || "divine cosmic energy";
+// Calculate soul number from birthday (life path number)
+function calculateSoulNumber(birthday: string): number {
+  if (!birthday) return 1;
+  const date = new Date(birthday);
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const year = date.getFullYear();
+  
+  const dateString = month.toString() + day.toString() + year.toString();
+  let sum = dateString.split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+  
+  while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+    sum = sum.toString().split('').reduce((acc, digit) => acc + parseInt(digit), 0);
+  }
+  
+  return sum > 9 ? Math.floor(sum / 10) + (sum % 10) : sum;
+}
+
+// Calculate energy level from name vibration
+function calculateEnergyLevel(name: string): number {
+  if (!name) return 7;
+  const nameValue = name.toLowerCase().split('').reduce((acc, char) => {
+    return acc + char.charCodeAt(0);
+  }, 0);
+  return (nameValue % 10) + 1;
 }
